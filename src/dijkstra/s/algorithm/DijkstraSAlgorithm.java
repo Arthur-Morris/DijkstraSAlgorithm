@@ -19,10 +19,9 @@ public class DijkstraSAlgorithm {
     static BufferedImage bimg;
 
     public static void main(String[] args) throws IOException {
-        String filepath = "test.jpg";
-        bimg = ImageIO.read(new File(filepath));
+        String filepath = "21269839_1344140905714877_1838133755_n";
+        bimg = ImageIO.read(new File(filepath + ".jpg"));
         PriorityQueue<pix> queue = new PriorityQueue<pix>();
-
         pix[][] stor = new pix[bimg.getWidth()][bimg.getHeight()];
 
         System.out.println(bimg.getHeight() + " " + bimg.getWidth());
@@ -45,46 +44,65 @@ public class DijkstraSAlgorithm {
         //System.out.println(queue.remove().dist + " " + queue.size());
         while (queue.size() > 0) {
             pix temp = queue.poll();
-            if (temp.x - 1 >= 0) {
-                if (stor[temp.x - 1][temp.y].dist == -1 || stor[temp.x - 1][temp.y].dist > temp.dist + dist(temp, stor[temp.x - 1][temp.y])) {
-                    stor[temp.x - 1][temp.y].dist = temp.dist + dist(temp, stor[temp.x - 1][temp.y]);
-                }
-            }
-            if (temp.y - 1 >= 0) {
-                if (stor[temp.x][temp.y - 1].dist == -1 || stor[temp.x][temp.y - 1].dist > temp.dist + dist(temp, stor[temp.x][temp.y - 1])) {
-                    stor[temp.x][temp.y - 1].dist = temp.dist + dist(temp, stor[temp.x][temp.y - 1]);
-                }
 
-            }
-            if (temp.x + 1 < stor.length) {
-                if (stor[temp.x + 1][temp.y].dist == -1 || stor[temp.x + 1][temp.y].dist > temp.dist + dist(temp, stor[temp.x + 1][temp.y])) {
-                    stor[temp.x + 1][temp.y].dist = temp.dist + dist(temp, stor[temp.x + 1][temp.y]);
-                }
+            // System.out.println(temp.dist + " " + temp.y);
+            if (temp.dist == -1) {
+            } else {
 
-            }
-            if (temp.y + 1 < stor[0].length) {
-                if (stor[temp.x][temp.y + 1].dist == -1 || stor[temp.x][temp.y + 1].dist > temp.dist + dist(temp, stor[temp.x][temp.y + 1])) {
-                    stor[temp.x][temp.y + 1].dist = temp.dist + dist(temp, stor[temp.x][temp.y + 1]);
-                }
+                if (temp.x - 1 >= 0) {
+                    if (stor[temp.x - 1][temp.y].dist == -1 || stor[temp.x - 1][temp.y].dist > temp.dist + dist(temp, stor[temp.x - 1][temp.y])) {
 
+                        //System.out.println(temp.dist);
+                        stor[temp.x - 1][temp.y].dist = temp.dist + dist(temp, stor[temp.x - 1][temp.y]);
+                        queue.add(stor[temp.x - 1][temp.y]);
+                        stor[temp.x - 1][temp.y].last = temp;
+                    }
+                }
+                if (temp.y - 1 >= 0) {
+                    if (stor[temp.x][temp.y - 1].dist == -1 || stor[temp.x][temp.y - 1].dist > temp.dist + dist(temp, stor[temp.x][temp.y - 1])) {
+                        stor[temp.x][temp.y - 1].dist = temp.dist + dist(temp, stor[temp.x][temp.y - 1]);
+                        queue.add(stor[temp.x][temp.y - 1]);
+                        stor[temp.x][temp.y - 1].last = temp;
+                    }
+
+                }
+                if (temp.x + 1 < stor.length) {
+                    if (stor[temp.x + 1][temp.y].dist == -1 || stor[temp.x + 1][temp.y].dist > temp.dist + dist(temp, stor[temp.x + 1][temp.y])) {
+                        stor[temp.x + 1][temp.y].dist = temp.dist + dist(temp, stor[temp.x + 1][temp.y]);
+                        queue.add(stor[temp.x + 1][temp.y]);
+                        stor[temp.x + 1][temp.y].last = temp;
+                    }
+
+                }
+                if (temp.y + 1 < stor[0].length) {
+                    if (stor[temp.x][temp.y + 1].dist == -1 || stor[temp.x][temp.y + 1].dist > temp.dist + dist(temp, stor[temp.x][temp.y + 1])) {
+                        stor[temp.x][temp.y + 1].dist = temp.dist + dist(temp, stor[temp.x][temp.y + 1]);
+                        queue.add(stor[temp.x][temp.y + 1]);
+                        stor[temp.x][temp.y + 1].last = temp;
+                    }
+
+                }
             }
-            System.out.println(temp.dist+" ");
-            System.out.println(stor[0][0].dist+" ");
+        }
+        double max = 0;
+        for (int x = 0; x < stor.length; x++) {
+            for (int y = 0; y < stor[0].length; y++) {
+                if (stor[x][y].dist > max) {
+                    max = stor[x][y].dist;
+                }
+                //System.out.print(stor[x][y].dist + " ");
+            }
             System.out.println();
         }
         for (int x = 0; x < stor.length; x++) {
             for (int y = 0; y < stor[0].length; y++) {
-            System.out.print(stor[x][y].dist+" ");
+                bimg.setRGB(x, y, (int) (stor[x][y].dist / max * 256.0f) + ((int) (stor[x][y].dist / max * 256.0f) << 8) + ((int) (stor[x][y].dist / max * 256.0f) << 16));
             }
-            System.out.println();
         }
-            System.out.print(stor[0][0].dist+" ");
+        ImageIO.write(bimg, "png", new File(filepath + "1.png"));
     }
-    
-
-    
 
     public static int dist(pix A, pix B) {
-        return (int) Math.sqrt(1 + ((A.r - B.r) * (A.r - B.r) + (A.g - B.g) * (A.g - B.g) + (A.b - B.b) * (A.b - B.b)));
+        return 1 + (int) Math.sqrt(((A.r - B.r) * (A.r - B.r) + (A.g - B.g) * (A.g - B.g) + (A.b - B.b) * (A.b - B.b)));
     }
 }

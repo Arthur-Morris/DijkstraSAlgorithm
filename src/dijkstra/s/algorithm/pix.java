@@ -14,6 +14,7 @@ import java.util.Comparator;
 public class pix implements Comparable<pix> {
 
     public int x, y, r, g, b, dist;
+    public pix last;
 
     public pix(int x) {
         dist = x;

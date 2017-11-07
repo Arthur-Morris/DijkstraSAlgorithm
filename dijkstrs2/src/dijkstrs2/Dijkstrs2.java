@@ -114,18 +114,13 @@ public class Dijkstrs2 {
     static BufferedImage bimg;
 
     public static void main(String[] args) throws IOException {
-        for (int e = 1; e <= 50; e++) {
-            int xi = (int) Math.sqrt(4096 * 3072 * 3.0 / 4.0 / 50.0 * e);
-            int yi = xi * 4 / 3;
-            System.out.print("\nsize," + xi + "," + yi + ",");
-            for (int n = 0; n < 25; n++) {
                 //System.out.println(n);
                 //String filepath = "P_20171027_003658_050";
-                String filepath = "P_20171103_113445";
+                String filepath = "test";
                 bimg = ImageIO.read(new File(filepath + ".jpg"));
                 PriorityQueue<pix> queue = new PriorityQueue<pix>();
-                pix[][] stor = new pix[yi][xi];
-                int[][] dist = new int[yi][xi];
+                pix[][] stor = new pix[bimg.getHeight()][bimg.getWidth()];
+                int[][] dist = new int[bimg.getHeight()][bimg.getWidth()];
                 pix t = new pix(0, stor.length / 2, stor[0].length / 2);
 
                 queue.offer(new pix(t));
@@ -175,9 +170,6 @@ public class Dijkstrs2 {
                         }
                     }
                 }
-                if (n == 0) {
-                    System.out.println(mx);
-                }
                 time = System.currentTimeMillis() - time;
                 System.out.print(time + ",");
                 //System.out.println(stor[stor.length - 1][stor[0].length - 1].dist);
@@ -208,8 +200,8 @@ public class Dijkstrs2 {
                 ImageIO.write(bimg, "png", new File(filepath + "l" + stor[stor.length - 1][stor[0].length - 1].dist + "2.png"));
             }*/
             }
-        }
-    }
+        
+    
 
     public static int distF(int A, int B) {
         int rA = (A & 0xff0000) >> 16;

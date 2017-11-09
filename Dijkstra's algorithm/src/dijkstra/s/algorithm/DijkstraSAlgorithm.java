@@ -17,7 +17,7 @@ public class DijkstraSAlgorithm {
     static BufferedImage bimg;
 
     public static void main(String[] args) throws IOException {
-        String filepath = "test";
+        String filepath = "hPbqqA3";
         bimg = ImageIO.read(new File(filepath + ".jpg"));
         PriorityQueue<pix> queue = new PriorityQueue<pix>();
         pix[][] stor = new pix[bimg.getWidth()][bimg.getHeight()];

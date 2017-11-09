@@ -116,12 +116,12 @@ public class Dijkstrs2 {
     public static void main(String[] args) throws IOException {
                 //System.out.println(n);
                 //String filepath = "P_20171027_003658_050";
-                String filepath = "test";
+                String filepath = "hPbqqA3";
                 bimg = ImageIO.read(new File(filepath + ".jpg"));
                 PriorityQueue<pix> queue = new PriorityQueue<pix>();
-                pix[][] stor = new pix[bimg.getHeight()][bimg.getWidth()];
-                int[][] dist = new int[bimg.getHeight()][bimg.getWidth()];
-                pix t = new pix(0, stor.length / 2, stor[0].length / 2);
+                pix[][] stor = new pix[bimg.getWidth()][bimg.getHeight()];
+                int[][] dist = new int[bimg.getWidth()][bimg.getHeight()];
+                pix t = new pix(0, 0,0);
 
                 queue.offer(new pix(t));
                 for (int x = 0; x < dist.length; x++) {
@@ -130,7 +130,7 @@ public class Dijkstrs2 {
                     }
                     //System.out.println("loaded line " + x);
                 }
-                dist[stor.length / 2][stor[0].length / 2] = 0;
+                dist[0][0] = 0;
                 int mx = 0;
                 long time = System.currentTimeMillis();
                 while (queue.size() > 0) {
@@ -173,7 +173,7 @@ public class Dijkstrs2 {
                 time = System.currentTimeMillis() - time;
                 System.out.print(time + ",");
                 //System.out.println(stor[stor.length - 1][stor[0].length - 1].dist);
-                double max = 0;/*
+                double max = 0;
                 for (int x = 0; x < stor.length; x++) {
                     for (int y = 0; y < stor[0].length; y++) {
                         if (dist[x][y] > max) {
@@ -198,7 +198,7 @@ public class Dijkstrs2 {
                     t = stor[t.x][t.y];
                 }
                 ImageIO.write(bimg, "png", new File(filepath + "l" + stor[stor.length - 1][stor[0].length - 1].dist + "2.png"));
-            }*/
+            
             }
         
     

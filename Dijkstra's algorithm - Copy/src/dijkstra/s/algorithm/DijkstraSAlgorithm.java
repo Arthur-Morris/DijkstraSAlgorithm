@@ -17,13 +17,13 @@ public class DijkstraSAlgorithm {
     static BufferedImage bimg;
 
     public static void main(String[] args) throws IOException {
-        String filepath = "test";
+        String filepath = "hPbqqA3";
         bimg = ImageIO.read(new File(filepath + ".jpg"));
         PriorityQueue<pix> queue = new PriorityQueue<pix>();
-        pix[][] stor = new pix[bimg.getHeight()][bimg.getWidth()];
+        pix[][] stor = new pix[bimg.getWidth()][bimg.getHeight()];
         // System.out.println(bimg.getHeight() + " " + bimg.getWidth());
-        for (int x = 0; x < bimg.getHeight(); x++) {
-            for (int y = 0; y < bimg.getWidth(); y++) {
+        for (int x = 0; x <stor.length; x++) {
+            for (int y = 0; y < stor[0].length; y++) {
                 pix t = new pix();
                 stor[x][y] = t;
                         //queue.offer(t);

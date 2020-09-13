@@ -1,4 +1,4 @@
-this was written for comp 3301 at carletion, it is sort of a mess
+this was written for technical writing - comp 3301 at carletion, it is sort of a mess
 original readme:
 DijkstraSAlgorithm is decrease key with the nodes storing their colour
 DijkstraSAlgorithm - copy is decrease key without the nodes storing their colour
